@@ -1,0 +1,795 @@
+Model: "model_3"
+__________________________________________________________________________________________________
+ Layer (type)                Output Shape                 Param #   Connected to                  
+==================================================================================================
+ input_6 (InputLayer)        [(None, None, None, 3)]      0         []                            
+                                                                                                  
+ rescaling_5 (Rescaling)     (None, None, None, 3)        0         ['input_6[0][0]']             
+                                                                                                  
+ Conv (Conv2D)               (None, None, None, 16)       432       ['rescaling_5[0][0]']         
+                                                                                                  
+ Conv/BatchNorm (BatchNorma  (None, None, None, 16)       64        ['Conv[0][0]']                
+ lization)                                                                                        
+                                                                                                  
+ tf.math.add_140 (TFOpLambd  (None, None, None, 16)       0         ['Conv/BatchNorm[0][0]']      
+ a)                                                                                               
+                                                                                                  
+ re_lu_165 (ReLU)            (None, None, None, 16)       0         ['tf.math.add_140[0][0]']     
+                                                                                                  
+ tf.math.multiply_140 (TFOp  (None, None, None, 16)       0         ['re_lu_165[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_95 (Multiply)      (None, None, None, 16)       0         ['Conv/BatchNorm[0][0]',      
+                                                                     'tf.math.multiply_140[0][0]']
+                                                                                                  
+ expanded_conv/depthwise/pa  (None, None, None, 16)       0         ['multiply_95[0][0]']         
+ d (ZeroPadding2D)                                                                                
+                                                                                                  
+ expanded_conv/depthwise (D  (None, None, None, 16)       144       ['expanded_conv/depthwise/pad[
+ epthwiseConv2D)                                                    0][0]']                       
+                                                                                                  
+ expanded_conv/depthwise/Ba  (None, None, None, 16)       64        ['expanded_conv/depthwise[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ re_lu_166 (ReLU)            (None, None, None, 16)       0         ['expanded_conv/depthwise/Batc
+                                                                    hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv/squeeze_exci  (None, 1, 1, 16)             0         ['re_lu_166[0][0]']           
+ te/AvgPool (GlobalAverageP                                                                       
+ ooling2D)                                                                                        
+                                                                                                  
+ expanded_conv/squeeze_exci  (None, 1, 1, 8)              136       ['expanded_conv/squeeze_excite
+ te/Conv (Conv2D)                                                   /AvgPool[0][0]']              
+                                                                                                  
+ expanded_conv/squeeze_exci  (None, 1, 1, 8)              0         ['expanded_conv/squeeze_excite
+ te/Relu (ReLU)                                                     /Conv[0][0]']                 
+                                                                                                  
+ expanded_conv/squeeze_exci  (None, 1, 1, 16)             144       ['expanded_conv/squeeze_excite
+ te/Conv_1 (Conv2D)                                                 /Relu[0][0]']                 
+                                                                                                  
+ tf.math.add_141 (TFOpLambd  (None, 1, 1, 16)             0         ['expanded_conv/squeeze_excite
+ a)                                                                 /Conv_1[0][0]']               
+                                                                                                  
+ re_lu_167 (ReLU)            (None, 1, 1, 16)             0         ['tf.math.add_141[0][0]']     
+                                                                                                  
+ tf.math.multiply_141 (TFOp  (None, 1, 1, 16)             0         ['re_lu_167[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv/squeeze_exci  (None, None, None, 16)       0         ['re_lu_166[0][0]',           
+ te/Mul (Multiply)                                                   'tf.math.multiply_141[0][0]']
+                                                                                                  
+ expanded_conv/project (Con  (None, None, None, 16)       256       ['expanded_conv/squeeze_excite
+ v2D)                                                               /Mul[0][0]']                  
+                                                                                                  
+ expanded_conv/project/Batc  (None, None, None, 16)       64        ['expanded_conv/project[0][0]'
+ hNorm (BatchNormalization)                                         ]                             
+                                                                                                  
+ expanded_conv_1/expand (Co  (None, None, None, 72)       1152      ['expanded_conv/project/BatchN
+ nv2D)                                                              orm[0][0]']                   
+                                                                                                  
+ expanded_conv_1/expand/Bat  (None, None, None, 72)       288       ['expanded_conv_1/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ re_lu_168 (ReLU)            (None, None, None, 72)       0         ['expanded_conv_1/expand/Batch
+                                                                    Norm[0][0]']                  
+                                                                                                  
+ expanded_conv_1/depthwise/  (None, None, None, 72)       0         ['re_lu_168[0][0]']           
+ pad (ZeroPadding2D)                                                                              
+                                                                                                  
+ expanded_conv_1/depthwise   (None, None, None, 72)       648       ['expanded_conv_1/depthwise/pa
+ (DepthwiseConv2D)                                                  d[0][0]']                     
+                                                                                                  
+ expanded_conv_1/depthwise/  (None, None, None, 72)       288       ['expanded_conv_1/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ re_lu_169 (ReLU)            (None, None, None, 72)       0         ['expanded_conv_1/depthwise/Ba
+                                                                    tchNorm[0][0]']               
+                                                                                                  
+ expanded_conv_1/project (C  (None, None, None, 24)       1728      ['re_lu_169[0][0]']           
+ onv2D)                                                                                           
+                                                                                                  
+ expanded_conv_1/project/Ba  (None, None, None, 24)       96        ['expanded_conv_1/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_2/expand (Co  (None, None, None, 88)       2112      ['expanded_conv_1/project/Batc
+ nv2D)                                                              hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_2/expand/Bat  (None, None, None, 88)       352       ['expanded_conv_2/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ re_lu_170 (ReLU)            (None, None, None, 88)       0         ['expanded_conv_2/expand/Batch
+                                                                    Norm[0][0]']                  
+                                                                                                  
+ expanded_conv_2/depthwise   (None, None, None, 88)       792       ['re_lu_170[0][0]']           
+ (DepthwiseConv2D)                                                                                
+                                                                                                  
+ expanded_conv_2/depthwise/  (None, None, None, 88)       352       ['expanded_conv_2/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ re_lu_171 (ReLU)            (None, None, None, 88)       0         ['expanded_conv_2/depthwise/Ba
+                                                                    tchNorm[0][0]']               
+                                                                                                  
+ expanded_conv_2/project (C  (None, None, None, 24)       2112      ['re_lu_171[0][0]']           
+ onv2D)                                                                                           
+                                                                                                  
+ expanded_conv_2/project/Ba  (None, None, None, 24)       96        ['expanded_conv_2/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_2/Add (Add)   (None, None, None, 24)       0         ['expanded_conv_1/project/Batc
+                                                                    hNorm[0][0]',                 
+                                                                     'expanded_conv_2/project/Batc
+                                                                    hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_3/expand (Co  (None, None, None, 96)       2304      ['expanded_conv_2/Add[0][0]'] 
+ nv2D)                                                                                            
+                                                                                                  
+ expanded_conv_3/expand/Bat  (None, None, None, 96)       384       ['expanded_conv_3/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_142 (TFOpLambd  (None, None, None, 96)       0         ['expanded_conv_3/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_172 (ReLU)            (None, None, None, 96)       0         ['tf.math.add_142[0][0]']     
+                                                                                                  
+ tf.math.multiply_142 (TFOp  (None, None, None, 96)       0         ['re_lu_172[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_96 (Multiply)      (None, None, None, 96)       0         ['expanded_conv_3/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_142[0][0]']
+                                                                                                  
+ expanded_conv_3/depthwise/  (None, None, None, 96)       0         ['multiply_96[0][0]']         
+ pad (ZeroPadding2D)                                                                              
+                                                                                                  
+ expanded_conv_3/depthwise   (None, None, None, 96)       2400      ['expanded_conv_3/depthwise/pa
+ (DepthwiseConv2D)                                                  d[0][0]']                     
+                                                                                                  
+ expanded_conv_3/depthwise/  (None, None, None, 96)       384       ['expanded_conv_3/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_143 (TFOpLambd  (None, None, None, 96)       0         ['expanded_conv_3/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_173 (ReLU)            (None, None, None, 96)       0         ['tf.math.add_143[0][0]']     
+                                                                                                  
+ tf.math.multiply_143 (TFOp  (None, None, None, 96)       0         ['re_lu_173[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_97 (Multiply)      (None, None, None, 96)       0         ['expanded_conv_3/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_143[0][0]']
+                                                                                                  
+ expanded_conv_3/squeeze_ex  (None, 1, 1, 96)             0         ['multiply_97[0][0]']         
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_3/squeeze_ex  (None, 1, 1, 24)             2328      ['expanded_conv_3/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_3/squeeze_ex  (None, 1, 1, 24)             0         ['expanded_conv_3/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_3/squeeze_ex  (None, 1, 1, 96)             2400      ['expanded_conv_3/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_144 (TFOpLambd  (None, 1, 1, 96)             0         ['expanded_conv_3/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_174 (ReLU)            (None, 1, 1, 96)             0         ['tf.math.add_144[0][0]']     
+                                                                                                  
+ tf.math.multiply_144 (TFOp  (None, 1, 1, 96)             0         ['re_lu_174[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_3/squeeze_ex  (None, None, None, 96)       0         ['multiply_97[0][0]',         
+ cite/Mul (Multiply)                                                 'tf.math.multiply_144[0][0]']
+                                                                                                  
+ expanded_conv_3/project (C  (None, None, None, 40)       3840      ['expanded_conv_3/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_3/project/Ba  (None, None, None, 40)       160       ['expanded_conv_3/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_4/expand (Co  (None, None, None, 240)      9600      ['expanded_conv_3/project/Batc
+ nv2D)                                                              hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_4/expand/Bat  (None, None, None, 240)      960       ['expanded_conv_4/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_145 (TFOpLambd  (None, None, None, 240)      0         ['expanded_conv_4/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_175 (ReLU)            (None, None, None, 240)      0         ['tf.math.add_145[0][0]']     
+                                                                                                  
+ tf.math.multiply_145 (TFOp  (None, None, None, 240)      0         ['re_lu_175[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_98 (Multiply)      (None, None, None, 240)      0         ['expanded_conv_4/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_145[0][0]']
+                                                                                                  
+ expanded_conv_4/depthwise   (None, None, None, 240)      6000      ['multiply_98[0][0]']         
+ (DepthwiseConv2D)                                                                                
+                                                                                                  
+ expanded_conv_4/depthwise/  (None, None, None, 240)      960       ['expanded_conv_4/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_146 (TFOpLambd  (None, None, None, 240)      0         ['expanded_conv_4/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_176 (ReLU)            (None, None, None, 240)      0         ['tf.math.add_146[0][0]']     
+                                                                                                  
+ tf.math.multiply_146 (TFOp  (None, None, None, 240)      0         ['re_lu_176[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_99 (Multiply)      (None, None, None, 240)      0         ['expanded_conv_4/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_146[0][0]']
+                                                                                                  
+ expanded_conv_4/squeeze_ex  (None, 1, 1, 240)            0         ['multiply_99[0][0]']         
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_4/squeeze_ex  (None, 1, 1, 64)             15424     ['expanded_conv_4/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_4/squeeze_ex  (None, 1, 1, 64)             0         ['expanded_conv_4/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_4/squeeze_ex  (None, 1, 1, 240)            15600     ['expanded_conv_4/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_147 (TFOpLambd  (None, 1, 1, 240)            0         ['expanded_conv_4/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_177 (ReLU)            (None, 1, 1, 240)            0         ['tf.math.add_147[0][0]']     
+                                                                                                  
+ tf.math.multiply_147 (TFOp  (None, 1, 1, 240)            0         ['re_lu_177[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_4/squeeze_ex  (None, None, None, 240)      0         ['multiply_99[0][0]',         
+ cite/Mul (Multiply)                                                 'tf.math.multiply_147[0][0]']
+                                                                                                  
+ expanded_conv_4/project (C  (None, None, None, 40)       9600      ['expanded_conv_4/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_4/project/Ba  (None, None, None, 40)       160       ['expanded_conv_4/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_4/Add (Add)   (None, None, None, 40)       0         ['expanded_conv_3/project/Batc
+                                                                    hNorm[0][0]',                 
+                                                                     'expanded_conv_4/project/Batc
+                                                                    hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_5/expand (Co  (None, None, None, 240)      9600      ['expanded_conv_4/Add[0][0]'] 
+ nv2D)                                                                                            
+                                                                                                  
+ expanded_conv_5/expand/Bat  (None, None, None, 240)      960       ['expanded_conv_5/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_148 (TFOpLambd  (None, None, None, 240)      0         ['expanded_conv_5/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_178 (ReLU)            (None, None, None, 240)      0         ['tf.math.add_148[0][0]']     
+                                                                                                  
+ tf.math.multiply_148 (TFOp  (None, None, None, 240)      0         ['re_lu_178[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_100 (Multiply)     (None, None, None, 240)      0         ['expanded_conv_5/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_148[0][0]']
+                                                                                                  
+ expanded_conv_5/depthwise   (None, None, None, 240)      6000      ['multiply_100[0][0]']        
+ (DepthwiseConv2D)                                                                                
+                                                                                                  
+ expanded_conv_5/depthwise/  (None, None, None, 240)      960       ['expanded_conv_5/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_149 (TFOpLambd  (None, None, None, 240)      0         ['expanded_conv_5/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_179 (ReLU)            (None, None, None, 240)      0         ['tf.math.add_149[0][0]']     
+                                                                                                  
+ tf.math.multiply_149 (TFOp  (None, None, None, 240)      0         ['re_lu_179[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_101 (Multiply)     (None, None, None, 240)      0         ['expanded_conv_5/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_149[0][0]']
+                                                                                                  
+ expanded_conv_5/squeeze_ex  (None, 1, 1, 240)            0         ['multiply_101[0][0]']        
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_5/squeeze_ex  (None, 1, 1, 64)             15424     ['expanded_conv_5/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_5/squeeze_ex  (None, 1, 1, 64)             0         ['expanded_conv_5/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_5/squeeze_ex  (None, 1, 1, 240)            15600     ['expanded_conv_5/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_150 (TFOpLambd  (None, 1, 1, 240)            0         ['expanded_conv_5/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_180 (ReLU)            (None, 1, 1, 240)            0         ['tf.math.add_150[0][0]']     
+                                                                                                  
+ tf.math.multiply_150 (TFOp  (None, 1, 1, 240)            0         ['re_lu_180[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_5/squeeze_ex  (None, None, None, 240)      0         ['multiply_101[0][0]',        
+ cite/Mul (Multiply)                                                 'tf.math.multiply_150[0][0]']
+                                                                                                  
+ expanded_conv_5/project (C  (None, None, None, 40)       9600      ['expanded_conv_5/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_5/project/Ba  (None, None, None, 40)       160       ['expanded_conv_5/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_5/Add (Add)   (None, None, None, 40)       0         ['expanded_conv_4/Add[0][0]', 
+                                                                     'expanded_conv_5/project/Batc
+                                                                    hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_6/expand (Co  (None, None, None, 120)      4800      ['expanded_conv_5/Add[0][0]'] 
+ nv2D)                                                                                            
+                                                                                                  
+ expanded_conv_6/expand/Bat  (None, None, None, 120)      480       ['expanded_conv_6/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_151 (TFOpLambd  (None, None, None, 120)      0         ['expanded_conv_6/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_181 (ReLU)            (None, None, None, 120)      0         ['tf.math.add_151[0][0]']     
+                                                                                                  
+ tf.math.multiply_151 (TFOp  (None, None, None, 120)      0         ['re_lu_181[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_102 (Multiply)     (None, None, None, 120)      0         ['expanded_conv_6/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_151[0][0]']
+                                                                                                  
+ expanded_conv_6/depthwise   (None, None, None, 120)      3000      ['multiply_102[0][0]']        
+ (DepthwiseConv2D)                                                                                
+                                                                                                  
+ expanded_conv_6/depthwise/  (None, None, None, 120)      480       ['expanded_conv_6/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_152 (TFOpLambd  (None, None, None, 120)      0         ['expanded_conv_6/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_182 (ReLU)            (None, None, None, 120)      0         ['tf.math.add_152[0][0]']     
+                                                                                                  
+ tf.math.multiply_152 (TFOp  (None, None, None, 120)      0         ['re_lu_182[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_103 (Multiply)     (None, None, None, 120)      0         ['expanded_conv_6/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_152[0][0]']
+                                                                                                  
+ expanded_conv_6/squeeze_ex  (None, 1, 1, 120)            0         ['multiply_103[0][0]']        
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_6/squeeze_ex  (None, 1, 1, 32)             3872      ['expanded_conv_6/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_6/squeeze_ex  (None, 1, 1, 32)             0         ['expanded_conv_6/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_6/squeeze_ex  (None, 1, 1, 120)            3960      ['expanded_conv_6/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_153 (TFOpLambd  (None, 1, 1, 120)            0         ['expanded_conv_6/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_183 (ReLU)            (None, 1, 1, 120)            0         ['tf.math.add_153[0][0]']     
+                                                                                                  
+ tf.math.multiply_153 (TFOp  (None, 1, 1, 120)            0         ['re_lu_183[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_6/squeeze_ex  (None, None, None, 120)      0         ['multiply_103[0][0]',        
+ cite/Mul (Multiply)                                                 'tf.math.multiply_153[0][0]']
+                                                                                                  
+ expanded_conv_6/project (C  (None, None, None, 48)       5760      ['expanded_conv_6/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_6/project/Ba  (None, None, None, 48)       192       ['expanded_conv_6/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_7/expand (Co  (None, None, None, 144)      6912      ['expanded_conv_6/project/Batc
+ nv2D)                                                              hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_7/expand/Bat  (None, None, None, 144)      576       ['expanded_conv_7/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_154 (TFOpLambd  (None, None, None, 144)      0         ['expanded_conv_7/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_184 (ReLU)            (None, None, None, 144)      0         ['tf.math.add_154[0][0]']     
+                                                                                                  
+ tf.math.multiply_154 (TFOp  (None, None, None, 144)      0         ['re_lu_184[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_104 (Multiply)     (None, None, None, 144)      0         ['expanded_conv_7/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_154[0][0]']
+                                                                                                  
+ expanded_conv_7/depthwise   (None, None, None, 144)      3600      ['multiply_104[0][0]']        
+ (DepthwiseConv2D)                                                                                
+                                                                                                  
+ expanded_conv_7/depthwise/  (None, None, None, 144)      576       ['expanded_conv_7/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_155 (TFOpLambd  (None, None, None, 144)      0         ['expanded_conv_7/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_185 (ReLU)            (None, None, None, 144)      0         ['tf.math.add_155[0][0]']     
+                                                                                                  
+ tf.math.multiply_155 (TFOp  (None, None, None, 144)      0         ['re_lu_185[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_105 (Multiply)     (None, None, None, 144)      0         ['expanded_conv_7/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_155[0][0]']
+                                                                                                  
+ expanded_conv_7/squeeze_ex  (None, 1, 1, 144)            0         ['multiply_105[0][0]']        
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_7/squeeze_ex  (None, 1, 1, 40)             5800      ['expanded_conv_7/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_7/squeeze_ex  (None, 1, 1, 40)             0         ['expanded_conv_7/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_7/squeeze_ex  (None, 1, 1, 144)            5904      ['expanded_conv_7/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_156 (TFOpLambd  (None, 1, 1, 144)            0         ['expanded_conv_7/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_186 (ReLU)            (None, 1, 1, 144)            0         ['tf.math.add_156[0][0]']     
+                                                                                                  
+ tf.math.multiply_156 (TFOp  (None, 1, 1, 144)            0         ['re_lu_186[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_7/squeeze_ex  (None, None, None, 144)      0         ['multiply_105[0][0]',        
+ cite/Mul (Multiply)                                                 'tf.math.multiply_156[0][0]']
+                                                                                                  
+ expanded_conv_7/project (C  (None, None, None, 48)       6912      ['expanded_conv_7/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_7/project/Ba  (None, None, None, 48)       192       ['expanded_conv_7/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_7/Add (Add)   (None, None, None, 48)       0         ['expanded_conv_6/project/Batc
+                                                                    hNorm[0][0]',                 
+                                                                     'expanded_conv_7/project/Batc
+                                                                    hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_8/expand (Co  (None, None, None, 288)      13824     ['expanded_conv_7/Add[0][0]'] 
+ nv2D)                                                                                            
+                                                                                                  
+ expanded_conv_8/expand/Bat  (None, None, None, 288)      1152      ['expanded_conv_8/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_157 (TFOpLambd  (None, None, None, 288)      0         ['expanded_conv_8/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_187 (ReLU)            (None, None, None, 288)      0         ['tf.math.add_157[0][0]']     
+                                                                                                  
+ tf.math.multiply_157 (TFOp  (None, None, None, 288)      0         ['re_lu_187[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_106 (Multiply)     (None, None, None, 288)      0         ['expanded_conv_8/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_157[0][0]']
+                                                                                                  
+ expanded_conv_8/depthwise/  (None, None, None, 288)      0         ['multiply_106[0][0]']        
+ pad (ZeroPadding2D)                                                                              
+                                                                                                  
+ expanded_conv_8/depthwise   (None, None, None, 288)      7200      ['expanded_conv_8/depthwise/pa
+ (DepthwiseConv2D)                                                  d[0][0]']                     
+                                                                                                  
+ expanded_conv_8/depthwise/  (None, None, None, 288)      1152      ['expanded_conv_8/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_158 (TFOpLambd  (None, None, None, 288)      0         ['expanded_conv_8/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_188 (ReLU)            (None, None, None, 288)      0         ['tf.math.add_158[0][0]']     
+                                                                                                  
+ tf.math.multiply_158 (TFOp  (None, None, None, 288)      0         ['re_lu_188[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_107 (Multiply)     (None, None, None, 288)      0         ['expanded_conv_8/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_158[0][0]']
+                                                                                                  
+ expanded_conv_8/squeeze_ex  (None, 1, 1, 288)            0         ['multiply_107[0][0]']        
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_8/squeeze_ex  (None, 1, 1, 72)             20808     ['expanded_conv_8/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_8/squeeze_ex  (None, 1, 1, 72)             0         ['expanded_conv_8/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_8/squeeze_ex  (None, 1, 1, 288)            21024     ['expanded_conv_8/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_159 (TFOpLambd  (None, 1, 1, 288)            0         ['expanded_conv_8/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_189 (ReLU)            (None, 1, 1, 288)            0         ['tf.math.add_159[0][0]']     
+                                                                                                  
+ tf.math.multiply_159 (TFOp  (None, 1, 1, 288)            0         ['re_lu_189[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_8/squeeze_ex  (None, None, None, 288)      0         ['multiply_107[0][0]',        
+ cite/Mul (Multiply)                                                 'tf.math.multiply_159[0][0]']
+                                                                                                  
+ expanded_conv_8/project (C  (None, None, None, 96)       27648     ['expanded_conv_8/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_8/project/Ba  (None, None, None, 96)       384       ['expanded_conv_8/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_9/expand (Co  (None, None, None, 576)      55296     ['expanded_conv_8/project/Batc
+ nv2D)                                                              hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_9/expand/Bat  (None, None, None, 576)      2304      ['expanded_conv_9/expand[0][0]
+ chNorm (BatchNormalization                                         ']                            
+ )                                                                                                
+                                                                                                  
+ tf.math.add_160 (TFOpLambd  (None, None, None, 576)      0         ['expanded_conv_9/expand/Batch
+ a)                                                                 Norm[0][0]']                  
+                                                                                                  
+ re_lu_190 (ReLU)            (None, None, None, 576)      0         ['tf.math.add_160[0][0]']     
+                                                                                                  
+ tf.math.multiply_160 (TFOp  (None, None, None, 576)      0         ['re_lu_190[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_108 (Multiply)     (None, None, None, 576)      0         ['expanded_conv_9/expand/Batch
+                                                                    Norm[0][0]',                  
+                                                                     'tf.math.multiply_160[0][0]']
+                                                                                                  
+ expanded_conv_9/depthwise   (None, None, None, 576)      14400     ['multiply_108[0][0]']        
+ (DepthwiseConv2D)                                                                                
+                                                                                                  
+ expanded_conv_9/depthwise/  (None, None, None, 576)      2304      ['expanded_conv_9/depthwise[0]
+ BatchNorm (BatchNormalizat                                         [0]']                         
+ ion)                                                                                             
+                                                                                                  
+ tf.math.add_161 (TFOpLambd  (None, None, None, 576)      0         ['expanded_conv_9/depthwise/Ba
+ a)                                                                 tchNorm[0][0]']               
+                                                                                                  
+ re_lu_191 (ReLU)            (None, None, None, 576)      0         ['tf.math.add_161[0][0]']     
+                                                                                                  
+ tf.math.multiply_161 (TFOp  (None, None, None, 576)      0         ['re_lu_191[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_109 (Multiply)     (None, None, None, 576)      0         ['expanded_conv_9/depthwise/Ba
+                                                                    tchNorm[0][0]',               
+                                                                     'tf.math.multiply_161[0][0]']
+                                                                                                  
+ expanded_conv_9/squeeze_ex  (None, 1, 1, 576)            0         ['multiply_109[0][0]']        
+ cite/AvgPool (GlobalAverag                                                                       
+ ePooling2D)                                                                                      
+                                                                                                  
+ expanded_conv_9/squeeze_ex  (None, 1, 1, 144)            83088     ['expanded_conv_9/squeeze_exci
+ cite/Conv (Conv2D)                                                 te/AvgPool[0][0]']            
+                                                                                                  
+ expanded_conv_9/squeeze_ex  (None, 1, 1, 144)            0         ['expanded_conv_9/squeeze_exci
+ cite/Relu (ReLU)                                                   te/Conv[0][0]']               
+                                                                                                  
+ expanded_conv_9/squeeze_ex  (None, 1, 1, 576)            83520     ['expanded_conv_9/squeeze_exci
+ cite/Conv_1 (Conv2D)                                               te/Relu[0][0]']               
+                                                                                                  
+ tf.math.add_162 (TFOpLambd  (None, 1, 1, 576)            0         ['expanded_conv_9/squeeze_exci
+ a)                                                                 te/Conv_1[0][0]']             
+                                                                                                  
+ re_lu_192 (ReLU)            (None, 1, 1, 576)            0         ['tf.math.add_162[0][0]']     
+                                                                                                  
+ tf.math.multiply_162 (TFOp  (None, 1, 1, 576)            0         ['re_lu_192[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_9/squeeze_ex  (None, None, None, 576)      0         ['multiply_109[0][0]',        
+ cite/Mul (Multiply)                                                 'tf.math.multiply_162[0][0]']
+                                                                                                  
+ expanded_conv_9/project (C  (None, None, None, 96)       55296     ['expanded_conv_9/squeeze_exci
+ onv2D)                                                             te/Mul[0][0]']                
+                                                                                                  
+ expanded_conv_9/project/Ba  (None, None, None, 96)       384       ['expanded_conv_9/project[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ expanded_conv_9/Add (Add)   (None, None, None, 96)       0         ['expanded_conv_8/project/Batc
+                                                                    hNorm[0][0]',                 
+                                                                     'expanded_conv_9/project/Batc
+                                                                    hNorm[0][0]']                 
+                                                                                                  
+ expanded_conv_10/expand (C  (None, None, None, 576)      55296     ['expanded_conv_9/Add[0][0]'] 
+ onv2D)                                                                                           
+                                                                                                  
+ expanded_conv_10/expand/Ba  (None, None, None, 576)      2304      ['expanded_conv_10/expand[0][0
+ tchNorm (BatchNormalizatio                                         ]']                           
+ n)                                                                                               
+                                                                                                  
+ tf.math.add_163 (TFOpLambd  (None, None, None, 576)      0         ['expanded_conv_10/expand/Batc
+ a)                                                                 hNorm[0][0]']                 
+                                                                                                  
+ re_lu_193 (ReLU)            (None, None, None, 576)      0         ['tf.math.add_163[0][0]']     
+                                                                                                  
+ tf.math.multiply_163 (TFOp  (None, None, None, 576)      0         ['re_lu_193[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_110 (Multiply)     (None, None, None, 576)      0         ['expanded_conv_10/expand/Batc
+                                                                    hNorm[0][0]',                 
+                                                                     'tf.math.multiply_163[0][0]']
+                                                                                                  
+ expanded_conv_10/depthwise  (None, None, None, 576)      14400     ['multiply_110[0][0]']        
+  (DepthwiseConv2D)                                                                               
+                                                                                                  
+ expanded_conv_10/depthwise  (None, None, None, 576)      2304      ['expanded_conv_10/depthwise[0
+ /BatchNorm (BatchNormaliza                                         ][0]']                        
+ tion)                                                                                            
+                                                                                                  
+ tf.math.add_164 (TFOpLambd  (None, None, None, 576)      0         ['expanded_conv_10/depthwise/B
+ a)                                                                 atchNorm[0][0]']              
+                                                                                                  
+ re_lu_194 (ReLU)            (None, None, None, 576)      0         ['tf.math.add_164[0][0]']     
+                                                                                                  
+ tf.math.multiply_164 (TFOp  (None, None, None, 576)      0         ['re_lu_194[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_111 (Multiply)     (None, None, None, 576)      0         ['expanded_conv_10/depthwise/B
+                                                                    atchNorm[0][0]',              
+                                                                     'tf.math.multiply_164[0][0]']
+                                                                                                  
+ expanded_conv_10/squeeze_e  (None, 1, 1, 576)            0         ['multiply_111[0][0]']        
+ xcite/AvgPool (GlobalAvera                                                                       
+ gePooling2D)                                                                                     
+                                                                                                  
+ expanded_conv_10/squeeze_e  (None, 1, 1, 144)            83088     ['expanded_conv_10/squeeze_exc
+ xcite/Conv (Conv2D)                                                ite/AvgPool[0][0]']           
+                                                                                                  
+ expanded_conv_10/squeeze_e  (None, 1, 1, 144)            0         ['expanded_conv_10/squeeze_exc
+ xcite/Relu (ReLU)                                                  ite/Conv[0][0]']              
+                                                                                                  
+ expanded_conv_10/squeeze_e  (None, 1, 1, 576)            83520     ['expanded_conv_10/squeeze_exc
+ xcite/Conv_1 (Conv2D)                                              ite/Relu[0][0]']              
+                                                                                                  
+ tf.math.add_165 (TFOpLambd  (None, 1, 1, 576)            0         ['expanded_conv_10/squeeze_exc
+ a)                                                                 ite/Conv_1[0][0]']            
+                                                                                                  
+ re_lu_195 (ReLU)            (None, 1, 1, 576)            0         ['tf.math.add_165[0][0]']     
+                                                                                                  
+ tf.math.multiply_165 (TFOp  (None, 1, 1, 576)            0         ['re_lu_195[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ expanded_conv_10/squeeze_e  (None, None, None, 576)      0         ['multiply_111[0][0]',        
+ xcite/Mul (Multiply)                                                'tf.math.multiply_165[0][0]']
+                                                                                                  
+ expanded_conv_10/project (  (None, None, None, 96)       55296     ['expanded_conv_10/squeeze_exc
+ Conv2D)                                                            ite/Mul[0][0]']               
+                                                                                                  
+ expanded_conv_10/project/B  (None, None, None, 96)       384       ['expanded_conv_10/project[0][
+ atchNorm (BatchNormalizati                                         0]']                          
+ on)                                                                                              
+                                                                                                  
+ expanded_conv_10/Add (Add)  (None, None, None, 96)       0         ['expanded_conv_9/Add[0][0]', 
+                                                                     'expanded_conv_10/project/Bat
+                                                                    chNorm[0][0]']                
+                                                                                                  
+ Conv_1 (Conv2D)             (None, None, None, 576)      55296     ['expanded_conv_10/Add[0][0]']
+                                                                                                  
+ Conv_1/BatchNorm (BatchNor  (None, None, None, 576)      2304      ['Conv_1[0][0]']              
+ malization)                                                                                      
+                                                                                                  
+ tf.math.add_166 (TFOpLambd  (None, None, None, 576)      0         ['Conv_1/BatchNorm[0][0]']    
+ a)                                                                                               
+                                                                                                  
+ re_lu_196 (ReLU)            (None, None, None, 576)      0         ['tf.math.add_166[0][0]']     
+                                                                                                  
+ tf.math.multiply_166 (TFOp  (None, None, None, 576)      0         ['re_lu_196[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_112 (Multiply)     (None, None, None, 576)      0         ['Conv_1/BatchNorm[0][0]',    
+                                                                     'tf.math.multiply_166[0][0]']
+                                                                                                  
+ global_average_pooling2d_5  (None, 1, 1, 576)            0         ['multiply_112[0][0]']        
+  (GlobalAveragePooling2D)                                                                        
+                                                                                                  
+ Conv_2 (Conv2D)             (None, 1, 1, 1024)           590848    ['global_average_pooling2d_5[0
+                                                                    ][0]']                        
+                                                                                                  
+ tf.math.add_167 (TFOpLambd  (None, 1, 1, 1024)           0         ['Conv_2[0][0]']              
+ a)                                                                                               
+                                                                                                  
+ re_lu_197 (ReLU)            (None, 1, 1, 1024)           0         ['tf.math.add_167[0][0]']     
+                                                                                                  
+ tf.math.multiply_167 (TFOp  (None, 1, 1, 1024)           0         ['re_lu_197[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ multiply_113 (Multiply)     (None, 1, 1, 1024)           0         ['Conv_2[0][0]',              
+                                                                     'tf.math.multiply_167[0][0]']
+                                                                                                  
+ dropout_5 (Dropout)         (None, 1, 1, 1024)           0         ['multiply_113[0][0]']        
+                                                                                                  
+ Logits (Conv2D)             (None, 1, 1, 1000)           1025000   ['dropout_5[0][0]']           
+                                                                                                  
+ flatten_5 (Flatten)         (None, 1000)                 0         ['Logits[0][0]']              
+                                                                                                  
+ Predictions (Activation)    (None, 1000)                 0         ['flatten_5[0][0]']           
+                                                                                                  
+ dense_7 (Dense)             (None, 64)                   64064     ['Predictions[0][0]']         
+                                                                                                  
+ dense_8 (Dense)             (None, 30)                   1950      ['dense_7[0][0]']             
+                                                                                                  
+ dense_9 (Dense)             (None, 7)                    217       ['dense_8[0][0]']             
+                                                                                                  
+==================================================================================================
+Total params: 2621199 (10.00 MB)
+Trainable params: 66231 (258.71 KB)
+Non-trainable params: 2554968 (9.75 MB)
+__________________________________________________________________________________________________
+              precision    recall  f1-score   support
+
+           0       0.84      0.84      0.84        75
+           1       0.79      1.00      0.88        75
+           2       0.74      0.89      0.81        75
+           3       0.92      0.60      0.73        75
+           4       0.92      0.97      0.95        75
+           5       0.83      0.84      0.83        75
+           6       0.85      0.69      0.76        75
+
+    accuracy                           0.83       525
+   macro avg       0.84      0.83      0.83       525
+weighted avg       0.84      0.83      0.83       525
+
+
+Confusion Matrix:
+[[63  1  0  1  1  8  1]
+ [ 0 75  0  0  0  0  0]
+ [ 0  0 67  1  1  0  6]
+ [ 0 15 13 45  0  0  2]
+ [ 0  0  0  1 73  1  0]
+ [11  1  0  0  0 63  0]
+ [ 1  3 10  1  4  4 52]]
+
+
+Classes :
+ Cardboard boxes=0
+ Cardboard drinks=1
+ glass=2
+ Metal cans=3
+ Metal foils and container=4
+ paper=5
+ Plastic bottles=6

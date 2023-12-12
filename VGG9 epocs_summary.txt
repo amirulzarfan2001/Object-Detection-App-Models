@@ -1,0 +1,65 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ block1_conv1 (Conv2D)       (None, 224, 224, 64)      1792      
+                                                                 
+ block1_conv2 (Conv2D)       (None, 224, 224, 64)      36928     
+                                                                 
+ block1_pool (MaxPooling2D)  (None, 112, 112, 64)      0         
+                                                                 
+ block2_conv1 (Conv2D)       (None, 112, 112, 128)     73856     
+                                                                 
+ block2_conv2 (Conv2D)       (None, 112, 112, 128)     147584    
+                                                                 
+ block2_pool (MaxPooling2D)  (None, 56, 56, 128)       0         
+                                                                 
+ block3_conv1 (Conv2D)       (None, 56, 56, 256)       295168    
+                                                                 
+ block3_conv2 (Conv2D)       (None, 56, 56, 256)       590080    
+                                                                 
+ block3_conv3 (Conv2D)       (None, 56, 56, 256)       590080    
+                                                                 
+ block3_pool (MaxPooling2D)  (None, 28, 28, 256)       0         
+                                                                 
+ block4_conv1 (Conv2D)       (None, 28, 28, 512)       1180160   
+                                                                 
+ block4_conv2 (Conv2D)       (None, 28, 28, 512)       2359808   
+                                                                 
+ block4_conv3 (Conv2D)       (None, 28, 28, 512)       2359808   
+                                                                 
+ block4_pool (MaxPooling2D)  (None, 14, 14, 512)       0         
+                                                                 
+ block5_conv1 (Conv2D)       (None, 14, 14, 512)       2359808   
+                                                                 
+ block5_conv2 (Conv2D)       (None, 14, 14, 512)       2359808   
+                                                                 
+ block5_conv3 (Conv2D)       (None, 14, 14, 512)       2359808   
+                                                                 
+ block5_pool (MaxPooling2D)  (None, 7, 7, 512)         0         
+                                                                 
+ flatten (Flatten)           (None, 25088)             0         
+                                                                 
+ fc1 (Dense)                 (None, 4096)              102764544 
+                                                                 
+ fc2 (Dense)                 (None, 4096)              16781312  
+                                                                 
+ dense (Dense)               (None, 6)                 24582     
+                                                                 
+=================================================================
+Total params: 134285126 (512.26 MB)
+Trainable params: 24582 (96.02 KB)
+Non-trainable params: 134260544 (512.16 MB)
+_________________________________________________________________
+              precision    recall  f1-score   support
+
+           0       0.89      0.97      0.93        60
+           1       0.89      0.64      0.74        75
+           2       0.57      0.98      0.72        61
+           3       0.87      0.83      0.85        89
+           4       0.86      0.69      0.77        72
+           5       0.36      0.19      0.25        21
+
+    accuracy                           0.78       378
+   macro avg       0.74      0.72      0.71       378
+weighted avg       0.80      0.78      0.77       378
